@@ -47,6 +47,7 @@ describe('services/default_user_service.test.js', function () {
         html_url: 'http://cnpmjs.org/~cnpmjstest10',
         avatar_url: 'https://s.gravatar.com/avatar/95b9d41231617a05ced5604d242c9670?s=50&d=retro',
         im_url: '',
+        role: 1,
         site_admin: true,
         scopes: ['@cnpm', '@cnpmtest'],
       });
@@ -69,6 +70,7 @@ describe('services/default_user_service.test.js', function () {
         html_url: 'http://cnpmjs.org/~cnpmjstest10',
         avatar_url: 'https://s.gravatar.com/avatar/95b9d41231617a05ced5604d242c9670?s=50&d=retro',
         im_url: '',
+        role: 1,
         site_admin: true,
         scopes: ['@cnpm', '@cnpmtest'],
       });
@@ -84,6 +86,7 @@ describe('services/default_user_service.test.js', function () {
         html_url: 'http://cnpmjs.org/~cnpmjstest101',
         avatar_url: 'https://s.gravatar.com/avatar/95b9d41231617a05ced5604d242c9670?s=50&d=retro',
         im_url: '',
+        role: 0,
         site_admin: false,
         scopes: ['@cnpm', '@cnpmtest'],
       });
@@ -99,6 +102,7 @@ describe('services/default_user_service.test.js', function () {
         html_url: 'http://cnpmjs.org/~fengmk2',
         avatar_url: 'https://s.gravatar.com/avatar/95b9d41231617a05ced5604d242c9670?s=50&d=retro',
         im_url: '',
+        role: 0,
         site_admin: true,
         scopes: ['@cnpm', '@cnpmtest'],
       });

@@ -26,7 +26,6 @@ var config = require('../config');
 module.exports = function () {
   return function* auth(next) {
     this.user = {};
-
     var authorization = (this.get('authorization') || '').split(' ')[1] || '';
     authorization = authorization.trim();
     debug('%s %s with %j', this.method, this.url, authorization);
@@ -41,7 +40,6 @@ module.exports = function () {
 
     var username = authorization[0];
     var password = authorization[1];
-
     var row;
     try {
       row = yield* UserService.auth(username, password);
@@ -50,12 +48,10 @@ module.exports = function () {
       // many request do not need login
       this.user.error = err;
     }
-
     if (!row) {
       debug('auth fail user: %j, headers: %j', row, this.header);
       return yield* unauthorized.call(this, next);
     }
-
     this.user.name = row.login;
     this.user.isAdmin = row.site_admin;
     this.user.scopes = row.scopes;
@@ -70,6 +66,7 @@ function* unauthorized(next) {
   }
   this.status = 401;
   this.set('WWW-Authenticate', 'Basic realm="sample"');
+
   if (this.accepts(['html', 'json']) === 'json') {
     this.body = {
       error: 'unauthorized',

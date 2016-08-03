@@ -92,3 +92,41 @@ exports.add = function* (user) {
 exports.update = function* (user) {
   return yield* User.update(user);
 };
+
+exports.userList = function* (page, perPage, cond) {
+  page = Number(page || 1);
+  cond = String(cond || '');
+  let limit = perPage;
+  let offset = (page - 1) * perPage;
+  let query = {
+    offset: offset,
+    limit: limit,
+    attributes: ['id', 'name', 'role', 'email', 'gmt_create', 'npm_user']
+  }
+  if (cond) {
+    query.where = {
+      $or: [
+        {
+          name: {
+            $like: '%' + cond + '%'
+          }
+        },{
+          email: {
+            $like: '%' + cond + '%'
+          }
+        }
+      ]
+    }
+  }
+  let users = yield User.findAndCountAll(query);
+
+  let body = {
+    rows: users.rows,
+    pagination: {
+      current: page,
+      total: users.count
+    }
+  }
+
+  return body;
+};
