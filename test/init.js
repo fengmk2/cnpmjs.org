@@ -1,10 +1,6 @@
 'use strict';
 
-/**
- * Module dependencies.
- */
-
-var config = require('../config');
+const config = require('../config');
 
 if (process.env.DB) {
   config.database.dialect = process.env.DB;
@@ -17,6 +13,9 @@ if (process.env.DB_PORT) {
 if (process.env.DB_USER) {
   config.database.username = process.env.DB_USER;
 }
+
+console.log('CNPM_SOURCE_NPM:%s, CNPM_SOURCE_NPM_ISCNPM:%s',
+  process.env.CNPM_SOURCE_NPM, process.env.CNPM_SOURCE_NPM_ISCNPM);
 
 if (process.env.CNPM_SOURCE_NPM) {
   config.sourceNpmRegistry = process.env.CNPM_SOURCE_NPM;
