@@ -72,7 +72,7 @@ module.exports = function* addUser() {
   }
 
   if (config.customUserService) {
-    // user login fail, not allow to add new user
+    // user login fail, disallow to add new user
     this.status = 401;
     this.body = {
       error: 'unauthorized',
