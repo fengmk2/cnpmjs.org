@@ -333,11 +333,7 @@ exports.listModuleAbbreviatedsByName = function* (name) {
   });
 
   for (var row of rows) {
-    row.package = JSON.parse(row.package);
-    if (row.publish_time && typeof row.publish_time === 'string') {
-      // pg bigint is string
-      row.publish_time = Number(row.publish_time);
-    }
+    parseRow(row);
   }
   return rows;
 };
@@ -381,7 +377,7 @@ exports.saveModuleAbbreviated = function* (mod) {
     });
   }
   item.publish_time = publish_time;
-  item.package = pkg;
+  item.package = encodeURIComponent(pkg);
 
   if (item.changed()) {
     item = yield item.save();
@@ -422,14 +418,15 @@ exports.updateModuleAbbreviatedPackage = function* (item) {
   if (!mod) {
     return null;
   }
-  var pkg = JSON.parse(mod.package);
+  parseRow(mod);
+  var pkg = mod.package;
   for (var key in item) {
     if (key === 'name' || key === 'version' || key === 'id') {
       continue;
     }
     pkg[key] = item[key];
   }
-  mod.package = JSON.stringify(pkg);
+  mod.package = encodeURIComponent( JSON.stringify(pkg) );
 
   return yield mod.save([ 'package' ]);
 };
