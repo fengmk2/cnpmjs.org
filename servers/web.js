@@ -79,12 +79,12 @@ var layout = fs.readFileSync(path.join(viewDir, 'layout.html'), 'utf8')
 fs.writeFileSync(layoutFile, layout);
 
 // custom web readme home page support
-var readmeFile = path.join(docDir, '_readme.md');
+var readmeFile = path.join(docDir, 'readme.md');
 var readmeContent;
 if (config.customReadmeFile) {
   readmeContent = fs.readFileSync(config.customReadmeFile, 'utf8');
 } else {
-  readmeContent = fs.readFileSync(path.join(docDir, 'readme.md'), 'utf8');
+  readmeContent = fs.readFileSync(path.join(docDir, '_readme.md'), 'utf8');
 }
 fs.writeFileSync(readmeFile, readmeContent);
 
@@ -94,7 +94,7 @@ app.use(markdownMiddleware({
   layout: layoutFile,
   titleHolder: '<%= locals.title %>',
   bodyHolder: '<%- locals.body %>',
-  indexName: '_readme',
+  indexName: 'readme',
   cache: true,
   render: function (content) {
     return renderMarkdown(content, false);
