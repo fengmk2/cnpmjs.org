@@ -48,7 +48,7 @@ database.syncFirst = false;
 
 // add longtext for mysql
 Sequelize.LONGTEXT = DataTypes.LONGTEXT = DataTypes.TEXT;
-if (config.dialect === 'mysql') {
+if (database.dialect === 'mysql') {
   Sequelize.LONGTEXT = DataTypes.LONGTEXT = 'LONGTEXT';
 }
 
@@ -56,8 +56,8 @@ database.define = {
   timestamps: true,
   createdAt: 'gmt_create',
   updatedAt: 'gmt_modified',
-  charset: 'utf8',
-  collate: 'utf8_general_ci',
+  charset: 'utf8mb4',
+  collate: 'utf8mb4_unicode_ci',
 };
 
 var sequelize = new Sequelize(database.db, database.username, database.password, database);
